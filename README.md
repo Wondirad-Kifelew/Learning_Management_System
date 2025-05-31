@@ -54,7 +54,7 @@ This is a modern Learning Management System (LMS) web application that allows ed
 
 ## 🚀 Live Demo
 
-Check out the live site here: [My_project_on Render]([https://your-render-url.onrender.com](https://learning-management-system-p398.onrender.com))
+Check out the live site here: [My_project_on Render](https://learning-management-system-p398.onrender.com)
 
 ---
 
