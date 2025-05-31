@@ -29,7 +29,7 @@ const Footer = () => {
          </div>
         </div>
         </div>
-        <p className='py-4 text-center text-sm text-white/80'>Copyright 2025 @FreeCourses. All Right Reserved</p>
+        <p className='py-4 text-center text-sm text-white/80'>Copyright 2025 @AmazingCourses. All Right Reserved</p>
       </footer>
     
   )

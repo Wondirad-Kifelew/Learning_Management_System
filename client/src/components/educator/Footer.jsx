@@ -14,7 +14,7 @@ const Footer = () => {
 
            </div>
                <p className='py-4 text-center text-xs md:text-am text-gray-500'>
-                Copyright 2025 © FreeCourse. All Right Reserved.
+                Copyright 2025 © AmazingCourses. All Right Reserved.
                </p>
           </div>  
           {/* right footer */}
