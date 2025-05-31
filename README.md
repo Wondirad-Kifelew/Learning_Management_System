@@ -1,4 +1,4 @@
-#  FreeCourses - Learning Management System (LMS)
+#  Learning Management System (LMS)
 
 > 🚧 This project is currently in active development.
 
