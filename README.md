@@ -32,7 +32,7 @@ This is a modern Learning Management System (LMS) web application that allows ed
 ## 🚀 Features until now
 
 -  Instructor dashboard for viewing 
--  Student portal for browsing and enrolling in courses
+-  Student portal for browsing and start Learning courses
 -  Responsive design (mobile + desktop)
 -  Built with React + Vite
 -  User context with centralized state management
