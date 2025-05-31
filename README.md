@@ -8,7 +8,24 @@ FreeCourses is a modern Learning Management System (LMS) web application that al
 
 ## 📸 Preview
 
+### Preview 1: Home page_1
 ![FreeCourses Logo](./client/src/assets/preview.jpg) <!-- Update path if necessary -->
+
+---
+### Preview 2: Home page_2
+![FreeCourses Logo](./client/src/assets/preview_2.jpg) <!-- Update path if necessary -->
+
+---
+### Preview 3: Courses list page
+![FreeCourses Logo](./client/src/assets/courses_list.jpg) <!-- Update path if necessary -->
+
+---
+### Preview 4: My courses page
+![FreeCourses Logo](./client/src/assets/my_courses.jpg) <!-- Update path if necessary -->
+
+---
+### Preview 5: Educators dashboard
+![FreeCourses Logo](./client/src/assets/Educator_dashboard.jpg) <!-- Update path if necessary -->
 
 ---
 
