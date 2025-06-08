@@ -9,14 +9,14 @@ export const clerkWebHooks = async (req, res)=>{
 try{
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
     console.log("req body in webhooks.js: ", req.body)
-     
-    await whook.verify(req.body, {
+
+    await whook.verify(JSON.stringify(req.body), {
         "svix-id": req.headers["svix-id"],
         "svix-timestamp":req.headers["svix-timestamp"],
         "svix-signature":req.headers["svix-signature"]
     })
     const {data, type} = req.body
-console.log("data created from clerk:", data)
+    console.log("data created from clerk:", data)
     switch (type) {
         case 'user.created':{
            const userData={
@@ -26,7 +26,7 @@ console.log("data created from clerk:", data)
                 imageUrl: data.image_url, 
            }
            await User.create(userData)
-           res.json({})
+           res.status(200).json({})
            break;
         }
         case 'user.updated':{
@@ -41,7 +41,7 @@ console.log("data created from clerk:", data)
         }
         case 'user.deleted':{
            await User.findByIdAndDelete(data.id)
-           res.status(200).json({})
+           res.status(204).json({})
            return
         }
         default:
