@@ -25,7 +25,7 @@ fetchEducatorCourses()
         <tr>
           <th className='px-4 py-3 font-semibold truncate'>All Courses</th>
           <th className='px-4 py-3 font-semibold truncate'>Earnings</th>
-          <th className='px-4 py-3 font-semibold truncate'>Students</th>
+          <th className='px-4 py-3 font-semibold truncate'>Students Enrolled</th>
           <th className='px-4 py-3 font-semibold truncate'>Published</th>
         </tr>
         </thead>
