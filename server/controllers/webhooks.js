@@ -30,18 +30,18 @@ try{
         }
         case 'user.updated':{
            const userData={
-                email: data.email_adress[0].email_adress,
+                email: data.email_addresses[0].email_address,
                 name: data.first_name+' '+ data.last_name,
-                imageUrl: data.image_Url, 
+                imageUrl: data.image_url, 
            }
            await User.findByIdAndUpdate(data.id, userData)
            res.json({})
            break;
         }
-        case 'user.delete':{
+        case 'user.deleted':{
            await User.findByIdAndDelete(data.id)
-           res.json({})
-           break;
+           res.status(200).json({})
+           return
         }
         default:
             break;
