@@ -2,10 +2,12 @@ import pkg from 'svix';
 const { Webhook } = pkg;
 import User from "../models/user.js"
 
+console.log("🔥 Clerk webhook triggered");
 
 
 //API controller function to manage clerk user with database
 export const clerkWebHooks = async (req, res)=>{
+    console.log("Headers: ", req.headers);
 try{
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
     console.log("req body in webhooks.js: ", req.body)
