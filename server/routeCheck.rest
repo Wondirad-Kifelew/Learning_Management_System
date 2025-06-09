@@ -1,2 +1,20 @@
 GET http://localhost:5000/
 
+###
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+  "type": "user.created",
+  "data": {
+    "id": "user_123",
+    "email_addresses": [
+      {
+        "email_address": "test@example.com"
+      }
+    ],
+    "first_name": "Emma",
+    "last_name": "Stone",
+    "image_url": "https://example.com/image.png"
+  }
+}
