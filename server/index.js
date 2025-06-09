@@ -14,7 +14,9 @@ app.use(cors())
 
 //routes  
 app.get('/', (req, res)=>res.send("API is working"))
-// app.post('/clerk', express.raw({ type: '*/*' }), clerkWebHooks)
+app.post('/clerk', express.raw({ type: '*/*' }), (req, res)=>{
+    console.log("reqest: ", req.body)
+})
 app.use(express.json())
 
 app.post('/api/users', async (req, res)=>{
