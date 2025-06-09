@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './configs/mongodb.js'
-import { clerkWebHooks } from './controllers/webhooks.js'
+// import { clerkWebHooks } from './controllers/webhooks.js'
 import User from './models/user.js'
 
 const app = express()
@@ -14,8 +14,10 @@ app.use(cors())
 
 //routes  
 app.get('/', (req, res)=>res.send("API is working"))
-app.post('/clerk', express.json(), clerkWebHooks)
-app.post('/api/users', express.json(), async (req, res)=>{
+// app.post('/clerk', express.raw({ type: '*/*' }), clerkWebHooks)
+app.use(express.json())
+
+app.post('/api/users', async (req, res)=>{
     
     const body = req.body
     console.log("body", body)

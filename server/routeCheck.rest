@@ -6,7 +6,7 @@ POST https://lms-il7o.onrender.com/api/users
 Content-Type: application/json
 
 {
-  "id": "user_12346",
+  "id": "user_12",
     "email_addresses": [
       {
         "email_address": "test@example.com"
