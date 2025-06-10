@@ -14,7 +14,6 @@ app.use(cors())
 
 //routes  
 app.get('/', (req, res)=>res.send("API is working"))
-app.get('/clerk', (req, res)=>res.send("clerk link is working"))
 
 app.post('/clerk', express.json(), clerkWebHooks)
 
