@@ -9,7 +9,7 @@ const Navbar = () => {
   const {navigate, isEducator} = useContext(AppContext)
   const {openSignIn}= useClerk()
   const {user} = useUser()
-
+console.log("user", user)
 
   return (
     <div className={`flex items-center justify-between px-4 sm:px-10 
