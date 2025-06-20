@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { AppContext } from "./AppContextHelper";
 import { dummyCourses  } from "../assets/assets";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import axios from "../axiosInstance";
 
@@ -78,6 +78,7 @@ export const AppContextProvider = (props)=>{
         setUserName('')
         setPassword('')
         setEmail('')
+        Navigate('/')
     }    
 
     useEffect((()=>{
