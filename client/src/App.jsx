@@ -13,6 +13,7 @@ import Navbar from './components/student/Navbar'
 import CourseDetails from './pages/student/CourseDetails'
 import MyEnrollments from './pages/student/MyEnrollments'
 import "quill/dist/quill.snow.css";
+import ResetPassword from './pages/student/ResetPassword'
 
 
 
@@ -30,6 +31,7 @@ const App = () => {
       <Routes>
         
         <Route path='/' element = {<Home/>}/> 
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path='/course-list' element = {<CoursesList />}/>
         <Route path='/course-list/:input' element = {<CoursesList />}/>
         <Route path='/player/:courseId' element = {<Player />}/>

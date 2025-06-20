@@ -3,13 +3,17 @@ import { AppContext } from "./AppContextHelper";
 import { dummyCourses  } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
+import axios from "../axiosInstance";
 
 export const AppContextProvider = (props)=>{
     const currency = import.meta.env.VITE_CURRENCY
     const [allCourses, setAllCourses] = useState([])
     const [isEducator, setIsEducator] = useState(true)
     const [enrolledCourses, setEnrolledCourses] = useState([])
-
+   const [loggedUser, setLoggedUser] = useState(null)
+    const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')    
     const navigate  = useNavigate()
 
 
@@ -60,6 +64,21 @@ export const AppContextProvider = (props)=>{
    const fetchUserEnrolledCourses = async ()=>{
      await setEnrolledCourses(dummyCourses)
    }
+    //login from the main page but logout from any where
+    const handleLogout= async (e)=>{
+        e.preventDefault()
+        //there is a global axios config to send with credentials
+        try {
+        const response = await axios.post('/api/logout')
+        console.log("Logout response: ", response.data.message)    
+        } catch (error) {
+        console.log("Logout error: ", error.response.data.error)    
+        }
+        setLoggedUser(null)
+        setUserName('')
+        setPassword('')
+        setEmail('')
+    }    
 
     useEffect((()=>{
         fetchAllCourses()
@@ -68,10 +87,11 @@ export const AppContextProvider = (props)=>{
     // values i want to use everywhere
     const value = {currency, allCourses, navigate, 
         calculateRating, isEducator, setIsEducator,
-         calculateChapterTime, calculateCourseDuration,
+        calculateChapterTime, calculateCourseDuration,
         calculateNumberOfLectures, enrolledCourses,
-    fetchUserEnrolledCourses}
-
+        fetchUserEnrolledCourses, loggedUser, setLoggedUser,
+        handleLogout, userName, setUserName, password, setPassword,
+        email, setEmail}
     return(
         <AppContext.Provider value={value}>
             {props.children}

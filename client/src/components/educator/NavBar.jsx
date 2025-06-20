@@ -1,13 +1,11 @@
-import React from 'react'
-import { assets, dummyEducatorData } from '../../assets/assets'
-import { UserButton, useUser } from '@clerk/clerk-react'
+import React, { useContext } from 'react'
 import { Link, Navigate } from 'react-router-dom'
+import { AppContext } from '../../context/AppContextHelper'
+import { assets } from '../../assets/assets'
 
 const NavBar = () => {
-  const educatorData = dummyEducatorData
-  const {user} = useUser()
-
-
+  
+   const {loggedUser, handleLogout} = useContext(AppContext)
   return (
     <div className='flex items-center 
     justify-between px-4 md:px-8 border-b border-gray-500 py-3'>
@@ -17,8 +15,10 @@ const NavBar = () => {
       </Link>
 
       <div className='flex items-center gap-5 text-gray-500 relative'>
-      <p>Hi! {user?  user.fullName: 'Developers'} </p>  
-      {user?  <UserButton/>: <img className='max-w-8' src={assets.profile_img}/>}
+      {/* <p>Hi! {user?  user.fullName: 'Developers'} </p>   */}
+      {loggedUser?  <button onClick={(e)=>handleLogout(e)} className='bg-blue-600 text-white px-5 py-2
+           rounded-full'>Logout</button>
+           : <img className='max-w-8' src={assets.profile_img}/>}
         </div>
     </div>
   )

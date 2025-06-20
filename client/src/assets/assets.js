@@ -1,3 +1,8 @@
+import eye from './eye.png'
+import eye_closed from './eye_closed.png'
+import email from './email.png'
+import person from './person.png'
+import password from './password.png'
 import logo from './logo.svg'
 import logo_dark from './logo_dark.svg'
 import search_icon from './search_icon.svg'
@@ -45,6 +50,11 @@ import lesson_icon from './lesson_icon.svg'
 
 
 export const assets = {
+    eye,
+    eye_closed,
+    email,
+    person,
+    password,
     logo,
     search_icon,
     sketch,
