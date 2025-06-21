@@ -12,7 +12,7 @@ import cookieParser from 'cookie-parser'
 
 const app = express()
 app.use(cors({
-  origin: 'https://lms-git-main-wondirads-projects.vercel.app',//change in production 
+  origin: 'https://lms-lilac-nine.vercel.app',//change in production 
   credentials: true 
 }))
 await connectDB()
