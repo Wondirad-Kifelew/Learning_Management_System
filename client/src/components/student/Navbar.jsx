@@ -130,7 +130,7 @@ try {
       
       {/* signin/signup popup */}
                 {loginClicked && <div className='fixed inset-0 z-50 flex items-center justify-center
-                bg-gray-100/70'>
+                bg-gray-100/80'>
 
               <div className='p-4 rounded bg-white text-gray-700 relative max-w-80 mx-5 w-full'>
                 <div>
@@ -196,7 +196,7 @@ try {
                 {/* pass reset popup */}
                   {lostPassBtn && 
                   <div className='fixed inset-0 z-50 flex items-center justify-center
-                bg-gray-500'>
+                bg-gray-100/80'>
                       
                     <div 
                     className='p-4 rounded bg-white text-gray-700 relative max-w-80 mx-5 w-full flex-col'>
