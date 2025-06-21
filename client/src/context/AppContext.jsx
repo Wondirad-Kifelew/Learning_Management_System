@@ -78,7 +78,7 @@ export const AppContextProvider = (props)=>{
         setUserName('')
         setPassword('')
         setEmail('')
-        Navigate('/')
+        navigate('/')
     }    
 
     useEffect((()=>{
