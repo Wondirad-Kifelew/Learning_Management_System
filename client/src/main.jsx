@@ -4,7 +4,6 @@ import App from './App.jsx'
 import { AppContextProvider } from './context/AppContext.jsx'
 import {BrowserRouter} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 
 createRoot(document.getElementById('root')).render(
@@ -16,9 +15,6 @@ createRoot(document.getElementById('root')).render(
       newestOnTop={false}
       closeOnClick
       theme="light"
-      progressClassName={({ type }) =>
-    type === 'success' ? 'bg-blue-600' : undefined//else the default like red for error
-  }
     />
      <AppContextProvider>
         <App />
