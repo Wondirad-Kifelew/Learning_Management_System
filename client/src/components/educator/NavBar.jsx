@@ -15,7 +15,7 @@ const NavBar = () => {
       </Link>
 
       <div className='flex items-center gap-5 text-gray-500 relative'>
-      {/* <p>Hi! {user?  user.fullName: 'Developers'} </p>   */}
+      <p>Hi! <span className='text-blue-600'>{loggedUser?  loggedUser: 'Developers'}</span> </p>  
       {loggedUser?  <button onClick={(e)=>handleLogout(e)} className='bg-blue-600 text-white px-5 py-2
            rounded-full'>Logout</button>
            : <img className='max-w-8' src={assets.profile_img}/>}
