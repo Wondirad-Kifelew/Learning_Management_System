@@ -42,3 +42,100 @@ Content-Type: application/json
 
 
 {"resetEmail": "won.babg@gmail.com"}
+
+
+###
+POST http://localhost:5000/api/educator/add-course
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEwODg2NywiZXhwIjoxNzUxMTk1MjY3fQ.4hK_pH3JLej46YoLPy0cyo0y_W5M5cbmQa3idhHm9FA; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 11:07:47 GMT; HttpOnly; Secure; SameSite=None
+Content-Type: application/json
+
+ {"courseData": 
+      {
+            "courseTitle": "Introduction to JavaScript",
+            "courseDescription": "Learn the Basics of JavaScriptAsafSDFASDFS",
+            "coursePrice": 49.99,
+            "isPublished": true,
+            "discount": 20,
+            "courseContent": [
+                {
+                    "chapterId": "chapter1", 
+                    "chapterOrder": 1,
+                    "chapterTitle": "Getting Started with JavaScript",
+                    "chapterContent": [
+                        {
+                            "lectureId": "lecture1",
+                            "lectureTitle": "What is JavaScript?",
+                            "lectureDuration": 16,
+                            "lectureUrl": "https://youtu.be/CBWnBi-awSA",
+                            "isPreviewFree": true,
+                            "lectureOrder": 1
+                        }
+                    ]
+                },
+                {   
+                    "chapterId": "chapter2", 
+                    "chapterOrder": 2,
+                    "chapterTitle": "Variables and Data Types",
+                    "chapterContent": [
+                        {
+                            "lectureId": "lecture2",
+                            "lectureTitle": "Understanding Variables",
+                            "lectureDuration": 20,
+                            "lectureUrl": "https://youtu.be/pZQeBJsGoDQ",
+                            "isPreviewFree": true,
+                            "lectureOrder": 1
+                        },
+                        {
+                            "lectureId": "lecture3",
+                            "lectureTitle": "Data Types in JavaScript",
+                            "lectureDuration": 10,
+                            "lectureUrl": "https://youtu.be/ufHT2WEkkC4",
+                            "isPreviewFree": false,
+                            "lectureOrder": 2
+                        }
+                    ]
+                }
+            ],
+            "educator": "675ac1512100b91a6d9b8b24",
+            "enrolledStudents": [
+                "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
+                "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
+                "user_2qjlgkAqIMpiR2flWIRzvWKtE0w"
+            ],
+            "courseRatings": [
+                {
+                    "userId": "user_2qjlgkAqIMpiR2flWIRzvWKtE0w",
+                    "rating": 4
+                }
+            ],
+      
+            "courseThumbnail": "https://img.youtube.com/vi/CBWnBi-awSA/maxresdefault.jpg"
+        }
+    }
+###
+GET http://localhost:5000/api/educator/courses
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEwODg2NywiZXhwIjoxNzUxMTk1MjY3fQ.4hK_pH3JLej46YoLPy0cyo0y_W5M5cbmQa3idhHm9FA; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 11:07:47 GMT; HttpOnly; Secure; SameSite=None
+
+###
+GET http://localhost:5000/api/course/all
+
+###
+GET http://localhost:5000/api/course/685fdf323cdad59462ff93d2
+
+
+###
+GET http://localhost:5000/api/user/data
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEyNjA3MSwiZXhwIjoxNzUxMjEyNDcxfQ.7lL7Tw3LPLhnVBOj6zIBbliaD2rB-GE1-YVWZ2khXL8; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 15:54:31 GMT; HttpOnly; Secure; SameSite=None
+
+###
+GET http://localhost:5000/api/user/enrolled-courses
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEyNjA3MSwiZXhwIjoxNzUxMjEyNDcxfQ.7lL7Tw3LPLhnVBOj6zIBbliaD2rB-GE1-YVWZ2khXL8; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 15:54:31 GMT; HttpOnly; Secure; SameSite=None
+
+###
+POST  http://localhost:5000/api/user/purchase
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEyNjA3MSwiZXhwIjoxNzUxMjEyNDcxfQ.7lL7Tw3LPLhnVBOj6zIBbliaD2rB-GE1-YVWZ2khXL8; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 15:54:31 GMT; HttpOnly; Secure; SameSite=None
+Origin: http://localhost:5000
+Content-Type: application/json
+
+
+{"courseId": "686003dd18eecc134e89ee16"}

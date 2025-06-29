@@ -16,7 +16,8 @@ const loginHandler = async (req, res) => {
   }
   const userToken = {
       username: userFound.username,
-      id: userFound._id
+      id: userFound._id,
+      role: userFound.role
   }
   const token = jwt.sign(userToken, process.env.SECRET, {expiresIn: 60*60*24})
 
@@ -26,7 +27,7 @@ const loginHandler = async (req, res) => {
         sameSite: 'None', 
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
-      .json({ message: 'Logged in', username}); 
+      .json({ message: 'Logged in', username, role: userFound.role }); 
 }
 
 const registerHandler = async (req, res) => { 
@@ -59,9 +60,10 @@ const registerHandler = async (req, res) => {
   
   const userToken = {
       username: savedUser.username,
-      id: savedUser._id
+      id: savedUser._id,
+      role: savedUser.role
     }  
-    console.log("secret: ", process.env.SECRET)
+    
   const token = jwt.sign(userToken, process.env.SECRET, {expiresIn: 60*60*24})
 
   res.cookie('token', token, {
@@ -70,7 +72,7 @@ const registerHandler = async (req, res) => {
       sameSite: 'None',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     })
-    .json({ message: 'signed up', username}); 
+    .json({ message: 'signed up', username, role: savedUser.role }); 
   
 }
 
@@ -104,6 +106,7 @@ const afterLogoutHandler =(req, res)=>{
  const user ={
   id: foundUser._id,
   username: foundUser.username,
+  role: foundUser.role
  }
 const resetToken = jwt.sign(user, process.env.SECRET, {expiresIn: '15m'})
 
@@ -140,7 +143,8 @@ const updatedUser = await User.findByIdAndUpdate(findUser._id, {passwordHash: ne
 //signin the user automatically
   const userToken = {
       username: updatedUser.username,
-      id: updatedUser._id
+      id: updatedUser._id,
+      role: updatedUser.role
     }  
   const token = jwt.sign(userToken, process.env.SECRET, {expiresIn: 60*60*24})
   res.cookie('token', token, {
