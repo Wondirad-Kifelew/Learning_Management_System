@@ -21,6 +21,7 @@ app.use(cors({
 }))
 await connectDB()
 
+app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks)
 app.use(express.json())
 app.use(cookieParser())
 
@@ -41,7 +42,7 @@ app.post('/api/me', authMiddleware.requireToken, (req, res)=>{
 app.use('/api/educator', express.json(), educatorRouter) 
 app.use('/api/course', express.json(), courseRouter) 
 app.use('/api/user', express.json(), userRouter) 
-app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks)
+
 // app.use()
 
 app.post('/api/reset-password', authMiddleware.userExtractorForPassReset,

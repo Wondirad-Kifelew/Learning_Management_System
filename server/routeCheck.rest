@@ -133,8 +133,8 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZ
 
 ###
 POST  http://localhost:5000/api/user/purchase
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEyNjA3MSwiZXhwIjoxNzUxMjEyNDcxfQ.7lL7Tw3LPLhnVBOj6zIBbliaD2rB-GE1-YVWZ2khXL8; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 15:54:31 GMT; HttpOnly; Secure; SameSite=None
-Origin: http://localhost:5000
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTIxNDY3NCwiZXhwIjoxNzUxMzAxMDc0fQ.OxS4Rrk1GF4_jENeA0cEGY2DoiiWW5GqKz3jykE-uVg; Max-Age=604800; Path=/; Expires=Sun, 06 Jul 2025 16:31:14 GMT; HttpOnly; Secure; SameSite=None
+Origin: https://lms-lilac-nine.vercel.app
 Content-Type: application/json
 
 
