@@ -21,6 +21,8 @@ app.use(cors({
 }))
 await connectDB()
 
+
+// this route doesn't need parsed body 
 app.post('/stripe', express.raw({type: 'application/json'}), stripeWebhooks)
 app.use(express.json())
 app.use(cookieParser())
