@@ -1,4 +1,4 @@
-GET http://localhost:5000/
+GET https://lms-backend-rrhg.onrender.com
 
 
 ###
@@ -115,7 +115,7 @@ Content-Type: application/json
     }
 ###
 GET http://localhost:5000/api/educator/courses
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTEwODg2NywiZXhwIjoxNzUxMTk1MjY3fQ.4hK_pH3JLej46YoLPy0cyo0y_W5M5cbmQa3idhHm9FA; Max-Age=604800; Path=/; Expires=Sat, 05 Jul 2025 11:07:47 GMT; HttpOnly; Secure; SameSite=None
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NjE3MWU2ZDU0Mjc4ZWJiZDk0NDk0ZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTIxNjk3NCwiZXhwIjoxNzUxMzAzMzc0fQ.e5p7cXNerMe1Y4c1ebYZjc25EDkY20AFJiaQubV6aJ8; Max-Age=604800; Path=/; Expires=Sun, 06 Jul 2025 17:09:34 GMT; HttpOnly; Secure; SameSite=None
 
 ###
 GET http://localhost:5000/api/course/all
@@ -134,9 +134,9 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZ
 
 ###
 POST  http://localhost:5000/api/user/purchase
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NWZjYzk2YmYzYjYzMzE0ZmNlYjkxZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTIxNDY3NCwiZXhwIjoxNzUxMzAxMDc0fQ.OxS4Rrk1GF4_jENeA0cEGY2DoiiWW5GqKz3jykE-uVg; Max-Age=604800; Path=/; Expires=Sun, 06 Jul 2025 16:31:14 GMT; HttpOnly; Secure; SameSite=None
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZW0iLCJpZCI6IjY4NjE3MWU2ZDU0Mjc4ZWJiZDk0NDk0ZiIsInJvbGUiOiJlZHVjYXRvciIsImlhdCI6MTc1MTIxNjk3NCwiZXhwIjoxNzUxMzAzMzc0fQ.e5p7cXNerMe1Y4c1ebYZjc25EDkY20AFJiaQubV6aJ8; Max-Age=604800; Path=/; Expires=Sun, 06 Jul 2025 17:09:34 GMT; HttpOnly; Secure; SameSite=None
 Origin: https://lms-lilac-nine.vercel.app
 Content-Type: application/json
 
 
-{"courseId": "686003dd18eecc134e89ee16"}
+{"courseId": "6861726dd54278ebbd944956"}

@@ -2,6 +2,7 @@ import User from "../models/user.js"
 import Stripe from "stripe"
 import Course from "../models/Course.js"
 import Purchase from "../models/Purchase.js"
+import CourseProgress from "../models/courseProgress.js"
 
 // get all users
 export const getUserData = async(req, res)=>{
@@ -84,4 +85,80 @@ try {
 } catch (error) {
     res.json({success:false, message:error.message})
 }
+}
+
+// update user Course Progress
+export const updateUserCourseProgress = async (req, res)=>{
+try {
+  const userId = req.user.id
+  const {courseId, lectureId} = req.body
+  const progressData = await CourseProgress.findOne({userId, courseId})
+
+  if(progressData){
+    if(progressData.lectureCompleted.includes(lectureId)){
+        res.json({success:true, message:'Lecture Already Completed'})
+    }
+    progressData.lectureCompleted.push(lectureId)
+    await progressData.save()
+  }else{
+    await CourseProgress.create({
+        userId,
+        courseId,
+        lectureCompleted:[lectureId]
+    })
+  }
+  res.json({success:true, message: 'Progress Updated'})
+
+} catch (error) {
+  res.json({success:false, message: error.message})
+}
+}
+// get user course progress
+export const getUserCourseprogress = async(req, res)=>{
+    try {
+  const userId = req.user.id
+  const {courseId} = req.body
+  const progressData = await CourseProgress.findOne({userId, courseId})    
+  res.json({success:true, progressData})
+    } catch (error) {
+  res.json({success:false, message: error.message})       
+    }
+}
+// add user rating to course
+
+export const addUserRating = async(req, res)=>{
+  const userId = req.user.id
+  const {courseId, rating} = req.body
+
+  if(!userId || !courseId || !rating || rating < 1 || rating > 5){
+  return res.json({success:false, message:'Invalid Details'})
+  }
+  
+  try {
+    const course = await Course.findById(courseId)
+     if(!course){
+        res.json({success:false, message:'Course not found!'})
+     }
+     const user = await User.findById(userId)
+     if(!user || !user.enrolledCourses.includes(courseId)){
+        res.json({success:false, message:'User has not purchased the course'})
+     }
+     const existingCourseRating = course.courseRatings.some(rating=>rating.userId === userId)    
+     if(existingCourseRating){
+        course.courseRatings.forEach(ratingObj=>{
+            if(ratingObj.userId === userId){
+                ratingObj.rating = rating
+            }
+        })
+     }else{
+        course.courseRatings.push({//rating id (optionAL)
+            userId, rating
+        })
+     }
+   await course.save()
+   return res.json({success:true, message: 'Rating added!'})
+
+  } catch (error) {
+   return res.json({success:false, message: error.message}) 
+  }
 }
