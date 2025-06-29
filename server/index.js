@@ -16,9 +16,7 @@ import { stripeWebhooks } from './controllers/webhooks.js'
 
 const app = express()
 app.use(cors({
-  origin: process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5173'
-    : 'https://lms-lilac-nine.vercel.app', // production URL
+  origin: 'https://lms-lilac-nine.vercel.app', // production URL
   credentials: true 
 }))
 await connectDB()
