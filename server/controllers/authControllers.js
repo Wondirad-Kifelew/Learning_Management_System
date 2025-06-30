@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt'
 import User from '../models/user.js'
 import nodemailer from 'nodemailer'
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const loginHandler = async (req, res) => {
   const {username, password} = req.body
   const userFound = await User.findOne({username})
@@ -23,8 +25,8 @@ const loginHandler = async (req, res) => {
 
   res.cookie('token', token, {
         httpOnly: true,     
-        secure: true,       //true in production
-        sameSite: 'None', 
+        secure: isProduction, 
+        sameSite: isProduction ? 'None' : 'Lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
       .json({ message: 'Logged in', username, role: userFound.role }); 
@@ -68,8 +70,8 @@ const registerHandler = async (req, res) => {
 
   res.cookie('token', token, {
       httpOnly: true,     
-      secure: true,       //true in production
-      sameSite: 'None',
+      secure: isProduction, 
+      sameSite: isProduction ? 'None' : 'Lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     })
     .json({ message: 'signed up', username, role: savedUser.role }); 
@@ -80,8 +82,8 @@ const logoutHandler = (req, res) => {
  
   res.clearCookie('token', {
     httpOnly: true,
-    secure: true,       //true in production
-    sameSite: 'None',
+    secure: isProduction, 
+    sameSite: isProduction ? 'None' : 'Lax',
   })
   res.json({ message: 'Logged out' })
 }
@@ -149,8 +151,8 @@ const updatedUser = await User.findByIdAndUpdate(findUser._id, {passwordHash: ne
   const token = jwt.sign(userToken, process.env.SECRET, {expiresIn: 60*60*24})
   res.cookie('token', token, {
       httpOnly: true,     
-      secure: true,       //true in production
-      sameSite: 'None',     //None in prod   
+      secure: isProduction, 
+      sameSite: isProduction ? 'None' : 'Lax',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days      
     }).status(200).json({message: "Password reset successful!", 
                          username:updatedUser.username})

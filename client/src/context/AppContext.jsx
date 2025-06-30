@@ -4,8 +4,10 @@ import { dummyCourses  } from "../assets/assets";
 import { Navigate, useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
 import axios from "../axiosInstance";
+import { toast } from "react-toastify";
 
 export const AppContextProvider = (props)=>{
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
     const currency = import.meta.env.VITE_CURRENCY
     const [allCourses, setAllCourses] = useState([])
     const [isEducator, setIsEducator] = useState(true)
@@ -18,8 +20,22 @@ export const AppContextProvider = (props)=>{
 
 
     //fetch all courses
-    const fetchAllCourses = ()=>{
-        setAllCourses(dummyCourses)
+    const fetchAllCourses = async ()=>{
+        // setAllCourses(dummyCourses)
+        try {//add 
+         const {data} = await axios.get(backendUrl + '/api/course/all', {
+            withCredentials:true
+         } )
+
+         if(data.success){
+            setAllCourses(data.courses)
+         }else{
+            toast.error(data.message)
+         }
+        } catch (error) {
+            toast.error(error.message)
+        }
+
     }
     
     // calculate the average rating of course

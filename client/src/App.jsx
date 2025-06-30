@@ -17,7 +17,6 @@ import ResetPassword from './pages/student/ResetPassword'
 
 
 
-
 const App = () => {
 
 
