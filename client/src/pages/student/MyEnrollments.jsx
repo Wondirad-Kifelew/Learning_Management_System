@@ -1,21 +1,47 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContextHelper'
 import {Line} from 'rc-progress'
 import Footer from '../../components/student/Footer'
+import axios from '../../axiosInstance'
+import { toast } from 'react-toastify'
+import axiosInstance from '../../axiosInstance'
 
 const MyEnrollments = () => {
-  const {enrolledCourses, calculateCourseDuration} = useContext(AppContext)
-  const [progressArray, setProgressArray] = useState([
-    {'lectureCompleted': 4, 'totalLectures': 6},
-    {'lectureCompleted': 14, 'totalLectures': 16},
-    {'lectureCompleted': 4, 'totalLectures': 4},
-    {'lectureCompleted': 3, 'totalLectures': 7},
-    {'lectureCompleted': 4, 'totalLectures': 4},
-    {'lectureCompleted': 1, 'totalLectures': 34},
-    {'lectureCompleted': 6, 'totalLectures': 8},
-    {'lectureCompleted': 2, 'totalLectures': 3},
-  ])
+  const {enrolledCourses, calculateCourseDuration, userData,
+    fetchUserEnrolledCourses, calculateNumberOfLectures
+  } = useContext(AppContext)
+  const [progressArray, setProgressArray] = useState([])
   const {navigate} = useContext(AppContext)
+
+const getCourseProgress = async()=>{
+  try {
+    const tempProgressArray = await Promise.all(
+      enrolledCourses.map(async (course)=>{
+        const {data} = await axiosInstance.post('/api/user/get-course-progress', 
+          {courseId:course._id})
+
+    let totalLectures = calculateNumberOfLectures(course)
+    const lectureCompleted = data.progressdata ? data.progressdata.lectureCompleted.length:0  
+    return {totalLectures, lectureCompleted}
+        })
+    )
+    setProgressArray(tempProgressArray)
+  } catch (error) {
+    toast.error(error.message)
+  }
+} 
+
+useEffect(()=>{
+if(userData){
+  fetchUserEnrolledCourses()
+}
+},[userData])
+
+useEffect(()=>{
+if(enrolledCourses.length > 0){
+  getCourseProgress()
+}
+},[enrolledCourses])
 
   const percentCalculator =(progressArr, ind)=>{
 if(progressArr[ind]){
@@ -23,7 +49,6 @@ if(progressArr[ind]){
  } else{
   return 0
  }
-    
   }
   return (
     <>

@@ -1,31 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { assets } from '../../assets/assets'
-// import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
 import { AppContext } from '../../context/AppContextHelper'
 import { Link } from 'react-router-dom'
-import axios from '../../axiosInstance'
 import { toast } from 'react-toastify'
+import axiosInstance from '../../axiosInstance'
 
 const Navbar = () => {
   const isCourseListPage = location.pathname.includes('course-list')
-  const {navigate, isEducator, userName, setUserName,
+  const {navigate, isEducator, setIsEducator, userName, setUserName,
          email, setEmail, password, setPassword
         } = useContext(AppContext)
-//   const {openSignIn}= useClerk()
-//   const {user} = useUser()
-// console.log("user", user)
     const {loggedUser, setLoggedUser} = useContext(AppContext)
     const [loginClicked, setLoginClicked] = useState(false)
     const [haveAccount, setHaveAccount] = useState(true)
-    // const [userName, setUserName] = useState('')
-    // const [password, setPassword] = useState('')
-    // const [email, setEmail] = useState('')
     const [seePassword, SetSeePassword] = useState(false)
     const [lostPassBtn, setLostPassBtn] = useState(false)
     const [resetEmail, setResetEmail] = useState('')
     const [loading, setLoading] = useState(false)
 
-console.log("username: ", userName, password, email)
     const handleLogin = async (e)=>{
         e.preventDefault()
         const credentials = {
@@ -33,7 +25,7 @@ console.log("username: ", userName, password, email)
             password,
         }
         try {
-            const response = await axios.post('/api/login', credentials)
+            const response = await axiosInstance.post('/api/login', credentials)
             const loginResponse = response.data
             
             if(loginResponse){
@@ -51,7 +43,7 @@ console.log("username: ", userName, password, email)
         e.preventDefault()
         //there is a global axios config to send with credentials
         try {
-        const response = await axios.post('/api/logout')
+        const response = await axiosInstance.post('/api/logout')
         console.log("Logout response: ", response.data.message)    
         } catch (error) {
         console.log("Logout error: ", error.response.data.error)    
@@ -70,7 +62,7 @@ console.log("username: ", userName, password, email)
     password 
     }
    try {
-        const response = await axios.post('/api/signup', userInfo)
+        const response = await axiosInstance.post('/api/signup', userInfo)
         const signupResponse = response.data
 
         if(signupResponse){
@@ -97,7 +89,7 @@ console.log("username: ", userName, password, email)
         e.preventDefault()
 try {
     setLoading(true) 
-    const response = await axios.post('/api/forgot-password', {resetEmail})
+    const response = await axiosInstance.post('/api/forgot-password', {resetEmail})
      console.log("pass reset resonse: ", response)
      toast.success("Email sent. Please check your inbox!")
     
@@ -107,11 +99,31 @@ try {
     setLoading(false)
 }
     }
+    // become educator
+    const becomeEducator =async()=>{
+    try {
+        if(isEducator){
+        navigate('/educator')
+        return
+    }
+    const {data} = await axiosInstance.post('/api/educator/update-role')
+
+    if(data.success){
+        setIsEducator(true)
+        toast.success(data.message)
+    }else{
+        toast.error(data.error)
+    }
+    } catch (error) {
+        toast.error(error.message)
+    }
+    }
+
     // on every refresh user should stay logged in 
     useEffect(() => {
     const fetchUser = async ()=>{
         try {
-        const response = await axios.post('/api/me')
+        const response = await axiosInstance.post('/api/me')
         console.log("me response: ", response)
         if(response.data.username){
             setLoggedUser(response.data.username)
@@ -230,7 +242,7 @@ try {
       <div className='hidden md:flex  items-center gap-5 text-gray-500 '> 
            <div className='flex items-center gap-5'> 
             {loggedUser && <>
-              <button onClick={()=>navigate('/educator')}>{isEducator? 'Educator Dashboard':'Become Educator'}</button>
+              <button onClick={becomeEducator}>{isEducator? 'Educator Dashboard':'Become Educator'}</button>
             | <Link to='/my-enrollments'>My Enrollments </Link></>}
            </div>
            {loggedUser? <button onClick={(e)=>handleLogout(e)} className='bg-blue-600 text-white px-5 py-2
@@ -242,7 +254,7 @@ try {
       <div className='md:hidden flex items-center gap-2 sm:gap-5 text-gray-500'>
         <div className='flex items-center gap-1 sm:gap-2 max-sm:text-xs'>
           {loggedUser && <>
-          <button>{isEducator? 'Educator Dashboard':'Become Educator'}</button>
+          <button onClick={becomeEducator}>{isEducator? 'Educator Dashboard':'Become Educator'}</button>
             | <Link to='/my-enrollments'>My Enrollments </Link></>}
         </div>
         { loggedUser? <button onClick={(e)=>handleLogout(e)} className='bg-blue-600 text-white px-3 py-1

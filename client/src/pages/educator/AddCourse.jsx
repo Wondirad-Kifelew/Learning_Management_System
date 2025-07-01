@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import uniqid from 'uniqid'
 import Quill from 'quill'
 import { assets } from '../../assets/assets'
+import axios from '../../axiosInstance'
+import { toast } from 'react-toastify'
+import axiosInstance from '../../axiosInstance'
 
 const AddCourse = () => {
 
@@ -43,10 +46,6 @@ const newChapter = {
 ))
 }
 }
-// console.log("chapters when toggled: ", chapters)
-// console.log("chapters[0].collapsed: ", chapters[0].collapsed)
-// console.log("chapters when closed: ", chapters)
-// console.log("chapters after closing: ", chapters)
 
 const handleLecture=(action, chapterId, lectureIndex)=>{
 if(action === 'add'){
@@ -86,8 +85,39 @@ const addLecture=()=>{
   })
 }
 
-const handleSubmit =(e)=>{
+const handleSubmit =async(e)=>{
+try {
   e.PreventDefault()
+  // image not there handle it here, first the backend
+
+  const courseData = {
+    courseTitle,
+    courseDescription:quillRef.current.root.innerHTML,
+    coursePrice:Number(coursePrice),
+    discount:Number(discount),
+    courseContent:chapters, 
+  }
+
+  const formData = new FormData()
+  formData.append('courseData', JSON.stringify(courseData))
+  // same for image when you do one
+
+  const {data} = await axiosInstance.post('/api/educator/add-course', formData)
+ if(data.success){
+   toast.success(data.message)
+   setCourseTitle('')
+   setCoursePrice(0)
+   setDiscount(0)
+  //  setimage null if ther is any
+  setChapters([])
+  quillRef.current.root.innerHTML=""
+ }else{
+   toast.error(data.message)
+ }
+
+} catch (error) {
+   toast.error(error.message)
+}
 }
 
 useEffect(()=>{

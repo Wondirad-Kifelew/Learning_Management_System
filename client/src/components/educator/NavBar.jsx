@@ -1,12 +1,12 @@
 import React, { useContext} from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { AppContext } from '../../context/AppContextHelper'
 import { assets } from '../../assets/assets'
 
 const NavBar = () => {
   
-  const {navigate} = useNavigate()
-   const {loggedUser, handleLogout} = useContext(AppContext)
+  // const {navigate} = useNavigate()
+   const {loggedUser, handleLogout, navigate} = useContext(AppContext)
    
   return (
     <div className='flex items-center 

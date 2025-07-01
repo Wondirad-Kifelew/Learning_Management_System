@@ -2,6 +2,23 @@ import Course from '../models/Course.js'
 import Purchase from '../models/Purchase.js'
 import User from '../models/user.js'
 
+
+// becomming an educator
+export const becomeEducator = async(req, res)=>{
+    const userId = req.user.id
+    try {
+    const user = await User.findById(userId)
+    user.role = 'educator'    
+    await user.save()
+
+    return res.json({
+        success:true, 
+        message:'You have become an educator. You can now publish a course'
+    })
+    } catch (error) {
+     return res.json({success:false, message:error.message})   
+    }
+}
 //adding course
 export const addCourse = async(req, res)=>{
 try {

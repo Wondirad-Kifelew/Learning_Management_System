@@ -5,6 +5,7 @@ import {useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 import { AppContext } from '../../context/AppContextHelper'
+import axiosInstance from '../../axiosInstance'
 
 const ResetPassword = () => {
   const {setLoggedUser} = useContext(AppContext)
@@ -24,7 +25,7 @@ const ResetPassword = () => {
       
       if(validPass){
       try {
-        const response = await axios.post('/api/reset-password',{newPassword: newPass, token: token})
+        const response = await axiosInstance.post('/api/reset-password',{newPassword: newPass, token: token})
         console.log("resetPass success response: ", response)
         setNewPass('')
         setConfirmNewPass('')
@@ -52,7 +53,7 @@ const ResetPassword = () => {
   useEffect(() => {
       const fetchUser = async ()=>{
           try {
-          const response = await axios.post('/api/me')
+          const response = await axiosInstance.post('/api/me')
           if(response.data.username){
               setLoggedUser(response.data.username)
           }    

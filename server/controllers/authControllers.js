@@ -112,8 +112,11 @@ const afterLogoutHandler =(req, res)=>{
  }
 const resetToken = jwt.sign(user, process.env.SECRET, {expiresIn: '15m'})
 
+const url =process.env.NODE_ENV === 'development'?
+          process.env.FRONTEND_URL_DEVELOPMENT: 
+          process.env.FRONTEND_URL_PRODUCTION 
 //email sending part
-const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+const resetUrl = `${url}/reset-password?token=${resetToken}`;
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {

@@ -6,7 +6,9 @@ import { assets } from '../../assets/assets'
 import humanizeDuration from 'humanize-duration'
 import Footer from '../../components/student/Footer'
 import YouTube from 'react-youtube'
-// import { assets } from '../../assets/assets'
+import axios from '../../axiosInstance'
+import { toast } from 'react-toastify'
+import axiosInstance from '../../axiosInstance'
 
 const CourseDetails = () => {
    const {id} = useParams()
@@ -16,9 +18,9 @@ const CourseDetails = () => {
   const [playerData, setPlayerData] = useState({})
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false)
 
-  const {allCourses, calculateRating, 
+  const {calculateRating, 
         calculateChapterTime, calculateCourseDuration,
-        calculateNumberOfLectures, currency } = useContext(AppContext)
+        calculateNumberOfLectures, currency, userData } = useContext(AppContext)
       
   const toggleSection = (index)=>{
   setOpenSection((prev)=>(
@@ -26,14 +28,49 @@ const CourseDetails = () => {
   ))
   }
 
-  const fetchedCourseData = ()=>{
-    const findCourse = allCourses.find(course => course._id === id)
-    setCourseData(findCourse)
+  const fetchedCourseData = async()=>{
+    try {
+      const {data} = await axiosInstance.get('/api/course/'+ id)
+       if(data.success){
+        setCourseData(data.courseData)
+       }else{
+        toast.error(data.message)
+       }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
+const enrollCourse =async()=>{
+  try {
+    if(!userData){
+      toast.warn('Login to enroll!')
+    }if(isAlreadyEnrolled){
+      toast.warn('Already enrolled to the course!')
+    }
+    const {data} = await axiosInstance.post('/api/user/purchase' , {courseId:courseData._id})
+  if(data.success){
+   const {session_url} = data
+   window.location.replace(session_url)
 
-  useEffect((()=>
-    fetchedCourseData()
-  ),[allCourses])
+  }else{
+    toast.error(data.message)
+  }
+  } catch (error) {
+      toast.error(error.message)  }
+}
+  useEffect(()=>{
+    const fetchData = async()=>{
+      await fetchedCourseData()
+    }
+    fetchData()
+
+  },[])
+  useEffect(()=>{
+    if(userData && courseData){
+      setIsAlreadyEnrolled(userData.enrolledCourses.includes(courseData._id))
+    }
+  
+  },[userData, courseData])
   
   return courseData? (
 <>    
@@ -41,8 +78,6 @@ const CourseDetails = () => {
     justify-between md:px-36 px-8 md:pt-30 pt-20  text-left h-min-h-screen'>
       
      
-      {/* <div className='absolute top-0 left-0 w-full h-[500px] -z-[1]
-      bg-gradient-to-b from-cyan-100/70'>sdsd</div> */}
 {/* Left column */}
 <div className='max-w-xl z-10 text-gray-500'>
   <h1 className='md:text-[36px] text-[26px] leading-[36px] font-semi-bold text-gray-800'> 
@@ -61,7 +96,7 @@ const CourseDetails = () => {
               <p>{courseData.enrolledStudents.length} {courseData.enrolledStudents.length>1?  
               ' students enrolled':  ' student enrolled'}</p>
             </div>
-            <p className=' text-sm'>Course by  <span className='text-blue-600 underline'> Alemu</span></p>
+            <p className=' text-sm'>Course by  <span className='text-blue-600 underline'>{courseData.educator.username}</span></p>
      <div className='pt-8 text-gray-800'>
       <h2 className=' text-xl font-semi-bold'>Course Structure</h2>
 
@@ -161,7 +196,7 @@ md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w-[420px]'>
   </div>
 
 <button className='bg-blue-600 text-white font-medium flex items-center justify-center  py-3
-md:mt-6 mt-4 rounded w-full cursor-pointer'>{isAlreadyEnrolled? 'Already enrolled': 'Enroll now'}
+md:mt-6 mt-4 rounded w-full cursor-pointer' onClick={enrollCourse}>{isAlreadyEnrolled? 'Already enrolled': 'Enroll now'}
 </button>
 </div>
 <p>What's in the course?</p>
@@ -173,8 +208,6 @@ md:mt-6 mt-4 rounded w-full cursor-pointer'>{isAlreadyEnrolled? 'Already enrolle
   <li>Certificate of completion.</li>
 </ul>
 </div>
-
-
     </div>  
 <Footer/>
     </>

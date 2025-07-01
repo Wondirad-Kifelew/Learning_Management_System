@@ -2,7 +2,6 @@ import 'dotenv/config'
 import express, { application } from 'express'
 import cors from 'cors'
 import connectDB from './configs/mongodb.js'
-// import { clerkWebHooks } from './controllers/webhooks.js'
 import { registerHandler, loginHandler, logoutHandler, 
          forgotPasswordHandler, passwordResetHandler} 
          from './controllers/authControllers.js'
@@ -17,10 +16,11 @@ import { stripeWebhooks } from './controllers/webhooks.js'
 const app = express()
 app.use(cors({
   origin: process.env.NODE_ENV === 'development'?
-  'http://localhost:5173': 
-  'https://lms-lilac-nine.vercel.app',
+          process.env.FRONTEND_URL_DEVELOPMENT: 
+          process.env.FRONTEND_URL_PRODUCTION,
   credentials: true 
 }))
+
 await connectDB()
 
 // this route doesn't need parsed body 
@@ -46,7 +46,6 @@ app.use('/api/educator', express.json(), educatorRouter)
 app.use('/api/course', express.json(), courseRouter) 
 app.use('/api/user', express.json(), userRouter) 
 
-// app.use()
 
 app.post('/api/reset-password', authMiddleware.userExtractorForPassReset,
   authMiddleware.requireToken, passwordResetHandler)
