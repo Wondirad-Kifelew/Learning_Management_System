@@ -2,14 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContextHelper'
 import {Line} from 'rc-progress'
 import Footer from '../../components/student/Footer'
-import axios from '../../axiosInstance'
 import { toast } from 'react-toastify'
 import axiosInstance from '../../axiosInstance'
 
 const MyEnrollments = () => {
   const {enrolledCourses, calculateCourseDuration, userData,
     fetchUserEnrolledCourses, calculateNumberOfLectures
-  } = useContext(AppContext)
+  } = useContext(AppContext)    
   const [progressArray, setProgressArray] = useState([])
   const {navigate} = useContext(AppContext)
 

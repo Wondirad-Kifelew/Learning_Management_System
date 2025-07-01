@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { AppContext } from '../../context/AppContextHelper'
 import SearchBar from '../../components/student/SearchBar'
 import CourseCard from '../../components/student/CourseCard'

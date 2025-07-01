@@ -6,7 +6,6 @@ import { assets } from '../../assets/assets'
 import humanizeDuration from 'humanize-duration'
 import Footer from '../../components/student/Footer'
 import YouTube from 'react-youtube'
-import axios from '../../axiosInstance'
 import { toast } from 'react-toastify'
 import axiosInstance from '../../axiosInstance'
 

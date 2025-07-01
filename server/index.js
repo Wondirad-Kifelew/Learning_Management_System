@@ -15,9 +15,11 @@ import { stripeWebhooks } from './controllers/webhooks.js'
 
 const app = express()
 app.use(cors({
-  origin: process.env.NODE_ENV === 'development'?
-          process.env.FRONTEND_URL_DEVELOPMENT: 
-          process.env.FRONTEND_URL_PRODUCTION,
+
+  // origin: process.env.NODE_ENV === 'development'?
+  //         process.env.FRONTEND_URL_DEVELOPMENT: 
+  //         process.env.FRONTEND_URL_PRODUCTION,
+  origin: true,
   credentials: true 
 }))
 
